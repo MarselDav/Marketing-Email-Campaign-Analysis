@@ -1,0 +1,52 @@
+// Use DBML to define your database structure
+// Docs: https://dbml.dbdiagram.io/docs
+
+
+Table fact_marketing {
+  fact_id integer [primary key, not null]
+  campaign_id integer [ref: > dim_campaign.campaign_id, not null]
+  date_id integer [ref: > dim_date.date_id, not null]
+  client_id integer [ref: > dim_client.client_id, not null]
+  country_id integer [ref: > dim_country.country_id, not null]
+  device_id integer [ref: > dim_device.device_id, not null]
+  clicked integer [not null]
+  bounced integer [not null]
+  opened integer [not null]
+  unsubscribed integer [not null]
+  conversion integer [not null]
+}
+
+
+Table dim_country {
+  country_id integer [primary key, not null]
+  name text [not null]
+  lat decimal [not null]
+  lon decimal [not null]
+}
+
+Table dim_client {
+  client_id integer [primary key, not null]
+  email text [not null]
+  segment text [not null]
+}
+
+Table dim_campaign {
+  campaign_id integer [primary key, not null]
+  name text [not null]
+  type text [not null]
+  target text [not null]
+}
+
+Table dim_device {
+  device_id integer [primary key, not null]
+  name text [not null]
+}
+
+Table dim_date {
+  date_id integer [primary key, not null]
+  date date [not null]
+  year integer [not null]
+  month integer [not null]
+  day integer [not null]
+  month_name text [not null]
+}
